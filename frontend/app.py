@@ -17,16 +17,20 @@ if st.button("Generate Quiz"):
             file_contents.append(content.hex())
 
         with st.spinner("Generating..."):
-            res = requests.post(backend_url, json={
-                "files": file_contents,
-                "question_type": question_type,
-                "num_questions": num_questions
-            })
+            try:
+                res = requests.post(backend_url, json={
+                    "files": file_contents,
+                    "question_type": question_type,
+                    "num_questions": num_questions
+                })
 
-            if res.status_code == 200:
-                st.markdown("### ✅ Generated Quiz")
-                st.write(res.json()["quiz"])
-            else:
-                st.error("Something went wrong.")
+                if res.status_code == 200:
+                    st.markdown("### ✅ Generated Quiz")
+                    st.write(res.json()["quiz"])
+                else:
+                    st.error(f"Something went wrong. Status Code: {res.status_code}")
+                    st.write(res.text)
+            except Exception as e:
+                st.error(f"Something went wrong: {e}")
     else:
         st.warning("Please upload at least one PDF.")
