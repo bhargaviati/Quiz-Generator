@@ -3,7 +3,7 @@ import requests
 
 st.title("📘 AI Quiz Generator")
 
-backend_url = "https://quiz-generator-ugbd.onrender.com"
+backend_url = "https://quiz-generator-ugbd.onrender.com/generate-quiz"
 
 uploaded_files = st.file_uploader("Upload PDFs", type="pdf", accept_multiple_files=True)
 question_type = st.selectbox("Select Question Type", ["MCQ", "True/False", "Short Answer"])
